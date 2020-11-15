@@ -1,0 +1,84 @@
+# Case-study #1
+# Делали в дискорде ,каждый со своего компьютера,скидывали код через вк
+# Developers:   Gorevoy (50%),
+#               Bricheev (50%)
+
+from math import inf
+
+steps_for_single = [
+         [0, 9075, 0.10],
+         [9076, 36900, 0.15],
+         [36901, 89350, 0.25],
+         [89351, 186350, 0.28],
+         [186351, 405100, 0.33],
+         [405101, 406750, 0.35],
+         [406751, inf, 0.396]
+         ]
+
+steps_for_couple = [
+         [0, 18150, 0.10],
+         [18151, 73800, 0.15],
+         [73801, 148850, 0.25],
+         [148851, 226850, 0.28],
+         [226851, 405100, 0.33],
+         [405101, 457600, 0.35],
+         [457601, inf, 0.396]
+         ]
+
+steps_for_single_parent = [
+         [0, 12950, 0.10],
+         [12951, 49400, 0.15],
+         [49401, 127550, 0.25],
+         [127551, 206600, 0.28],
+         [206601, 405100, 0.33],
+         [405101, 432200, 0.35],
+         [432201, inf, 0.396]
+         ]
+
+months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november",
+          "december"]
+
+person = int(input("Enter the number corresponding to your marital status:\n"
+                   "1.Single\n"
+                   "2.Couple\n"
+                   "3.Single parent\n"
+                   "Enter here: "))
+
+income = dict()
+
+for month in months:
+    income[month] = float(input("Enter your income  for " + month + " : "))
+
+general_income = 0
+
+for month in months:
+    general_income += income[month]
+
+tax_deduction = float(input("Enter tax deduction : "))
+
+tax = 0
+
+if person == 1:
+    for i in steps_for_single:
+        if i[0] <= general_income <= i[1]:
+            tax += (general_income - i[0]) * i[2]
+        elif general_income > i[1]:
+                tax += (i[1] - i[0]) * i[2]
+    final_tax = tax - tax_deduction
+    print("General tax for an year : ", final_tax)
+elif person == 2:
+    for i in steps_for_couple:
+        if i[0] <= general_income <= i[1]:
+            tax += (general_income - i[0]) * i[2]
+        elif general_income > i[1]:
+                tax += (i[1] - i[0]) * i[2]
+    final_tax = tax - tax_deduction
+    print("General tax for year : ", final_tax)
+else:
+    for i in steps_for_single_parent:
+        if i[0] <= general_income <= i[1]:
+            tax += (general_income - i[0]) * i[2]
+        elif general_income > i[1]:
+                tax += (i[1] - i[0]) * i[2]
+    final_tax = tax - tax_deduction
+    print("General tax for year : ", final_tax)
